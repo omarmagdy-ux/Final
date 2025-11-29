@@ -68,10 +68,10 @@ WORKDIR /comfyui
 RUN mkdir -p models/checkpoints models/vae models/unet models/clip
 
 # Download Flux Krea GGUF 8, Flux VAE, Flux Clip I, and T5XXL text encoder FP8
-RUN wget --header="Authorization: Bearer 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" -O models/checkpoints/flux_krea_gguf8.gguf https://huggingface.co/QuantStack/FLUX.1-Krea-dev-GGUF/resolve/main/flux1-krea-dev-Q8_0.gguf && \
-    wget --header="Authorization: Bearer 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" -O models/vae/flux_vae.safetensors https://huggingface.co/StableDiffusionVN/Flux/resolve/main/Vae/flux_vae.safetensors && \
-    wget --header="Authorization: Bearer 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" -O models/clip/flux_clip_i.safetensors https://huggingface.co/StableDiffusionVN/Flux/resolve/main/Clip/clip_l.safetensors && \
-    wget --header="Authorization: Bearer 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" -O models/clip/t5xxl_fp8_e4m3fn.safetensors https://huggingface.co/StableDiffusionVN/Flux/resolve/main/Clip/t5xxl_fp8_e4m3fn.safetensors
+RUN wget --timeout=300 --tries=3 --header="Authorization: Bearer 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" -O models/checkpoints/flux_krea_gguf8.gguf https://huggingface.co/QuantStack/FLUX.1-Krea-dev-GGUF/resolve/main/flux1-krea-dev-Q8_0.gguf || true && \
+    wget --timeout=300 --tries=3 --header="Authorization: Bearer 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" -O models/vae/flux_vae.safetensors https://huggingface.co/StableDiffusionVN/Flux/resolve/main/Vae/flux_vae.safetensors || true && \
+    wget --timeout=300 --tries=3 --header="Authorization: Bearer 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" -O models/clip/flux_clip_i.safetensors https://huggingface.co/StableDiffusionVN/Flux/resolve/main/Clip/clip_l.safetensors || true && \
+    wget --timeout=300 --tries=3 --header="Authorization: Bearer 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" -O models/clip/t5xxl_fp8_e4m3fn.safetensors https://huggingface.co/StableDiffusionVN/Flux/resolve/main/Clip/t5xxl_fp8_e4m3fn.safetensors || true
 
 # Stage 3: Final image
 FROM base as final
